@@ -1,0 +1,64 @@
+<div class="app-layout">
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <button class="mobile-menu-btn" (click)="toggleSidebar()" aria-label="Toggle menu">
+        ☰
+      </button>
+      <div class="brand-logo">
+        <span class="bank-symbol">🏛️</span>
+        <span class="bank-title">ONLINE BANKING</span>
+      </div>
+    </div>
+
+    <div class="nav-user-area" *ngIf="authService.authState$ | async as auth">
+      <div class="user-chip">
+        <div class="user-info">
+          <span class="user-name">{{ auth.displayName || auth.username || 'Người dùng' }}</span>
+          <span class="role-badge" [ngClass]="'role-' + (auth.primaryRole | lowercase)">
+            {{ auth.primaryRole }}
+          </span>
+        </div>
+      </div>
+      <button class="btn btn-outline-danger btn-sm logout-btn" (click)="onLogout()">
+        Đăng xuất
+      </button>
+    </div>
+  </header>
+
+  <div class="layout-body">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" [class.open]="sidebarOpen">
+      <div class="sidebar-header">
+        <span class="sidebar-title">DANH MỤC TIỆN ÍCH</span>
+        <button class="close-sidebar-btn" (click)="closeSidebar()">✕</button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li *ngFor="let item of filteredNavItems">
+            <a [routerLink]="item.path" routerLinkActive="active" (click)="closeSidebar()">
+              <span class="nav-label">{{ item.label }}</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-status">
+          <span class="status-indicator"></span>
+          <span class="status-text">Hệ thống bảo mật</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Backdrop for mobile sidebar -->
+    <div class="sidebar-backdrop" *ngIf="sidebarOpen" (click)="closeSidebar()"></div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+

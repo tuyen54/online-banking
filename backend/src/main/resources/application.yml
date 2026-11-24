@@ -1,0 +1,61 @@
+# ═══════════════════════════════════════════════════════════════
+# Online Banking Backend — Application Configuration
+# ═══════════════════════════════════════════════════════════════
+
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: online_banking-backend
+
+  # ──── MySQL Datasource ────
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:online_banking}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: ${MYSQL_USERNAME:onlinebanking}
+    password: ${MYSQL_PASSWORD:onlinebanking}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # ──── JPA / Hibernate ────
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  # ──── Flyway Migrations ────
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+  # ──── OAuth2 Resource Server (Keycloak JWT) ────
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:9000/realms/online_banking}
+          jwk-set-uri: ${KEYCLOAK_JWK_SET_URI:http://host.docker.internal:9000/realms/online_banking/protocol/openid-connect/certs}
+
+# ──── Application-specific settings ────
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200,http://localhost,http://localhost:80}
+
+# ──── Actuator Endpoints ────
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# ──── Logging ────
+logging:
+  level:
+    com.onlinebanking: INFO
+    org.springframework.security: INFO
+

@@ -1,0 +1,36 @@
+# ═══════════════════════════════════════════════════════════════
+# Test Configuration — H2 in-memory database, no Keycloak
+# ═══════════════════════════════════════════════════════════════
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+  flyway:
+    enabled: false
+
+  # JWT config is present but the JwtDecoder bean is mocked in tests,
+  # so Spring Boot never contacts this endpoint during tests.
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/online_banking
+
+app:
+  cors:
+    allowed-origins: http://localhost:4200
+
+logging:
+  level:
+    com.onlinebanking: DEBUG
+

@@ -1,0 +1,84 @@
+﻿# â”€â”€â”€â”€ Maven â”€â”€â”€â”€
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# â”€â”€â”€â”€ IDE â”€â”€â”€â”€
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.project
+.classpath
+*.swp
+*.swo
+
+# â”€â”€â”€â”€ OS â”€â”€â”€â”€
+.DS_Store
+Thumbs.db
+
+# â”€â”€â”€â”€ Java â”€â”€â”€â”€
+*.class
+*.jar
+*.war
+
+# â”€â”€â”€â”€ Logs â”€â”€â”€â”€
+*.log
+
+# â”€â”€â”€â”€ Environment â”€â”€â”€â”€
+.env
+*.env.local
+
+
+# Angular / Node.js
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+node_modules/
+dist/
+
+# Build and temporary files
+build/
+out/
+coverage/
+tmp/
+temp/
+
+# Environment files
+.env.*
+!.env.example
+
+# Database backups and dumps
+*.sql.gz
+*.dump
+*.bak
+
+# Certificates and private keys
+*.key
+*.p12
+*.pfx
+
+# Runtime logs
+logs/
+
+# Keycloak realm export may contain user credentials
+keycloak/online-banking-realm.json
+
+# Keycloak realm export may contain user credentials
+keycloak/online-banking-realm.json
+
+# Backup files
+*.bak
+*.old
+*.orig
+
+# Keycloak exports and local realm data
+keycloak/*realm*.json
+keycloak/*export*.json
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
